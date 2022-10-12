@@ -4,7 +4,7 @@ import java.util.Arrays;
 
 /**
  * @program: DataStructure
- * 描述：  基数排序
+ * 描述：  基数排序 桶排序
  * @author: fzn
  * @create: 2022-01-29 19:16
  **/
