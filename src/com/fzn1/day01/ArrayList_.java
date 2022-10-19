@@ -13,12 +13,23 @@ public class ArrayList_<E> {
 	 */
 	private E[] elements;
 
+	/**
+	 * 默认容量 10
+	 */
 	private static final int DEFAULT_CAPACITY = 10;
+
+	/**
+	 * 未找到元素-1表示
+	 */
 	private static final int ELEMENT_NOT_FOUND = -1;
-	
-	public ArrayList_(int capaticy) {
-		capaticy = (capaticy < DEFAULT_CAPACITY) ? DEFAULT_CAPACITY : capaticy;
-		elements = (E[]) new Object[capaticy];
+
+	/**
+	 * 有参构造比较 指定大小是否小于10 小于10 就为10
+	 * @param capacity
+	 */
+	public ArrayList_(int capacity) {
+		capacity = Math.max(capacity, DEFAULT_CAPACITY);
+		elements = (E[]) new Object[capacity];
 	}
 	
 	public ArrayList_() {
@@ -127,11 +138,12 @@ public class ArrayList_<E> {
 
 	/**
 	 * 查看元素的索引
-	 * @param element
-	 * @return
+	 * @param element 元素
+	 * @return 下标 不存在 -1
 	 */
 	public int indexOf(E element) {
 		if (element == null) {  // 1
+			// 是否存有null值
 			for (int i = 0; i < size; i++) {
 				if (elements[i] == null) return i; 
 			}
@@ -155,10 +167,11 @@ public class ArrayList_<E> {
 //	}
 	
 	/**
-	 * 保证要有capacity的容量
-	 * @param capacity
+	 * 保证要有capacity的容量  扩容
+	 * @param capacity 容量
 	 */
 	private void ensureCapacity(int capacity) {
+		// oldCapacity 旧的容量
 		int oldCapacity = elements.length;
 		if (oldCapacity >= capacity) return;
 		
@@ -172,11 +185,19 @@ public class ArrayList_<E> {
 		
 		System.out.println(oldCapacity + "扩容为" + newCapacity);
 	}
-	
+
+	/**
+	 * 数组下标越界异常
+	 * @param index
+	 */
 	private void outOfBounds(int index) {
 		throw new IndexOutOfBoundsException("Index:" + index + ", Size:" + size);
 	}
-	
+
+	/**
+	 * 数组的范围检查
+	 * @param index 下标
+ 	 */
 	private void rangeCheck(int index) {
 		if (index < 0 || index >= size) {
 			outOfBounds(index);
@@ -188,22 +209,28 @@ public class ArrayList_<E> {
 			outOfBounds(index);
 		}
 	}
-	
+
+	/**
+	 * 重写打印方法
+	 * @return String
+	 */
 	@Override
 	public String toString() {
 		// size=3, [99, 88, 77]
 		StringBuilder string = new StringBuilder();
 		string.append("size=").append(size).append(", [");
 		for (int i = 0; i < size; i++) {
+			// 不是第一个元素我们就先拼接一个逗号
 			if (i != 0) {
 				string.append(", ");
 			}
 			
 			string.append(elements[i]);
-			
-//			if (i != size - 1) {
-//				string.append(", ");
-//			}
+
+			// 方法二
+			// if (i != size - 1) {
+			// 	string.append(", ");
+			// }
 		}
 		string.append("]");
 		return string.toString();
